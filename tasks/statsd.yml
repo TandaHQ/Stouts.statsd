@@ -1,21 +1,22 @@
 ---
 
-- shell: dpkg-query -W 'npm'
-  ignore_errors: True
-  register: has_npm
+- name: Check if yarn is installed
+  shell: dpkg-query -l yarn
+  ignore_errors: yes
+  register: dpkg_yarn_check
 
-- name: Ensure that NPM is installed
-  apt:  name=npm update_cache=yes
-  when: has_npm|failed
+- name: Ensure that Yarn is installed
+  apt:  name=yarn update_cache=yes
+  when: dpkg_yarn_check|failed
 
 - name: Prepare Statsd directory
   file: state=directory path={{statsd_home}}
 
 - name: Install statsd
-  npm: name=statsd path={{statsd_home}}
+  yarn: name=statsd path={{statsd_home}}
 
 - name: Install extra NPM dependencies
-  npm: name={{item}} path={{statsd_home}}
+  yarn: name={{item}} path={{statsd_home}}
   with_items: "{{ statsd_extra_dependencies }}"
 
 - name: Create node user
