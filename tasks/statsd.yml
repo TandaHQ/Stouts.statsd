@@ -13,10 +13,12 @@
 
 - name: Install statsd
   npm: name=statsd path={{statsd_home}}
+  become: "{{ statsd_npm_as_root }}"
 
 - name: Install extra NPM dependencies
   npm: name={{item}} path={{statsd_home}}
   with_items: "{{ statsd_extra_dependencies }}"
+  become: "{{ statsd_npm_as_root }}"
 
 - name: Create node user
   user: name={{statsd_user}} state=present shell=/bin/false system=yes
