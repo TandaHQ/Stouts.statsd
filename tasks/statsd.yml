@@ -12,6 +12,9 @@
 - name: Prepare Statsd directory
   file: state=directory path={{statsd_home}}
 
+- name: Prepare Statsd package.json
+  template: src=package.json dest={{statsd_home}}/package.json
+
 - name: Install statsd
   yarn: name=statsd path={{statsd_home}}
 
