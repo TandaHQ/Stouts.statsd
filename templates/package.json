@@ -3,5 +3,8 @@
   "version": "0.1.0",
   "main": "index.js",
   "license": "UNLICENSED",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "statsd": "^0.8.4"    
+  }
 }
