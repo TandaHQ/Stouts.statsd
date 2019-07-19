@@ -5,6 +5,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "statsd": "^0.8.4"    
+    "statsd": "^0.8.4",
+    "aws-cloudwatch-statsd-backend": "git+https://github.com/camitz/aws-cloudwatch-statsd-backend"
   }
 }
