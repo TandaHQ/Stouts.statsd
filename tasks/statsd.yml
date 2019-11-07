@@ -7,7 +7,7 @@
 
 - name: Ensure that Yarn is installed
   apt:  name=yarn update_cache=yes
-  when: dpkg_yarn_check|failed
+  when: dpkg_yarn_check.rc == 0
 
 - name: Prepare Statsd directory
   file: state=directory path={{statsd_home}}
