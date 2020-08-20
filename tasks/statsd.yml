@@ -15,7 +15,7 @@
 - name: Prepare Statsd package.json
   template:
     src: package.json
-    dest: {{statsd_home}}/package.json
+    dest: "{{statsd_home}}/package.json"
     mode: 0644
 
 - name: Install statsd
