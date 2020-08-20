@@ -68,7 +68,7 @@
 - name: Configure statsd
   template:
     src: statsd.js.j2
-    dest: {{statsd_home}}/config.js
+    dest: "{{statsd_home}}/config.js"
     mode: 0644
   notify:
   - "{{statsd_title}} restart"
