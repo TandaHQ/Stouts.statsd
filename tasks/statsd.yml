@@ -13,7 +13,9 @@
   file: state=directory path={{statsd_home}}
 
 - name: Prepare Statsd package.json
-  template: src=package.json dest={{statsd_home}}/package.json
+  template:
+    src: package.json
+    dest: {{statsd_home}}/package.json
     mode: 0644
 
 - name: Install statsd
@@ -27,14 +29,18 @@
   user: name={{statsd_user}} state=present shell=/bin/false system=yes
 
 - name: Configure upstart
-  template: src=upstart.conf.j2 dest=/etc/init/{{statsd_title}}.conf
+  template:
+    src: upstart.conf.j2
+    dest: /etc/init/{{statsd_title}}.conf
     mode: 0644
   when: ansible_distribution=="Ubuntu" and ansible_distribution_major_version < "15.04"
   notify:
   - "{{statsd_title}} restart"
 
 - name: Configure systemd
-  template: src=systemd.service.j2 dest=/etc/systemd/system/{{statsd_title}}.service
+  template:
+    src: systemd.service.j2
+    dest: /etc/systemd/system/{{statsd_title}}.service
     mode: 0644
   when: ansible_distribution=="Ubuntu" and ansible_distribution_major_version > "15.04"
   notify:
@@ -42,21 +48,27 @@
 
 
 - name: Configure sysvinit
-  template: src=sysvinit.conf.j2 dest=/etc/init.d/{{statsd_title}}
+  template:
+    src: sysvinit.conf.j2
+    dest: /etc/init.d/{{statsd_title}}
     mode: 0644
   when: ansible_distribution=="Debian" and ansible_distribution_major_version < 8
   notify:
   - "{{statsd_title}} restart"
 
 - name: Configure systemd
-  template: src=systemd.service.j2 dest=/etc/systemd/system/{{statsd_title}}.service
+  template:
+    src: systemd.service.j2
+    dest: /etc/systemd/system/{{statsd_title}}.service
     mode: 0644
   when: ansible_distribution=="Debian" and ansible_distribution_major_version > 8
   notify:
   - "{{statsd_title}} restart"
 
 - name: Configure statsd
-  template: src=statsd.js.j2 dest={{statsd_home}}/config.js
+  template:
+    src: statsd.js.j2
+    dest: {{statsd_home}}/config.js
     mode: 0644
   notify:
   - "{{statsd_title}} restart"
